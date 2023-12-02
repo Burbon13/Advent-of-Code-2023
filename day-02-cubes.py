@@ -26,7 +26,28 @@ def solve_day_2_part_1():
                     and max_dict['green'] <= green_limit \
                     and max_dict['blue'] <= blue_limit:
                 answer += game_nr
-    print(answer)
+    print('Part 1:', answer)
+
+
+def solve_day_2_part_1_short():
+    answer = 0
+    with open('./data/in/day-02-part-1.txt') as my_file:
+        for line in my_file:
+            game_in, rest_data = line.strip().split(':')
+            max_dict = {
+                'red': 0,
+                'green': 0,
+                'blue': 0
+            }
+            for grab in rest_data.split(';'):
+                for one_color_cubes in grab.split(','):
+                    number, color = one_color_cubes.strip().split(' ')
+                    max_dict[color] = max(max_dict[color], int(number))
+            if max_dict['red'] <= 12 \
+                    and max_dict['green'] <= 13 \
+                    and max_dict['blue'] <= 14:
+                answer += int(game_in.split(' ')[1])
+    print('Part 1 (short):', answer)
 
 
 def solve_day_2_part_2():
@@ -52,5 +73,6 @@ def solve_day_2_part_2():
 
 
 if __name__ == '__main__':
-    # solve_day_2_part_1()
+    solve_day_2_part_1()
+    solve_day_2_part_1_short()
     solve_day_2_part_2()
